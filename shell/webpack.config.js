@@ -1,15 +1,7 @@
-const {
-  shareAll,
-  withModuleFederationPlugin,
-} = require("@angular-architects/module-federation/webpack");
-
 module.exports = withModuleFederationPlugin({
-  remotes: {
-    header: "header@http://localhost:4201/remoteEntry.js",
+  name: 'header',
+  exposes: {
+    './HeaderComponent': './src/app/header/header.component.ts', // Ce chemin doit être correct
   },
-  shared: shareAll({
-    singleton: true,
-    strictVersion: true,
-    requiredVersion: "auto",
-  }),
+  shared: shareAll({ singleton: true, strictVersion: true, requiredVersion: 'auto' }),
 });
