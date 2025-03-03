@@ -1,17 +1,14 @@
-const {
-  shareAll,
-  withModuleFederationPlugin,
-} = require("@angular-architects/module-federation/webpack");
+const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 
-module.exports = withModuleFederationPlugin({
-  name: "header",
-  filename: "remoteEntry.js",
-  exposes: {
-    "./HeaderComponent": "./src/app/header/header.component.ts",
-  },
-  shared: shareAll({
-    singleton: true,
-    strictVersion: true,
-    requiredVersion: "auto",
-  }),
-});
+module.exports = {
+  plugins: [
+    new ModuleFederationPlugin({
+      name: 'header',
+      filename: 'remoteEntry.js',
+      exposes: {
+        './HeaderComponent': './src/app/header/header.component.ts',
+      },
+      shared: ['@angular/core', '@angular/common'],
+    })
+  ],
+};
